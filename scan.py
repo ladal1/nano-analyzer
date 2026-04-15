@@ -269,6 +269,9 @@ def load_api_keys():
 
 
 def resolve_backend(model, keys):
+    openrouter_api_url = os.environ.get("OPENROUTER_API_URL", OPENROUTER_API_URL)
+    openai_api_url = os.environ.get("OPENAI_API_URL", OPENAI_API_URL)
+
     if "/" in model:
         api_key = keys.get("OPENROUTER_API_KEY")
         if not api_key:
@@ -279,7 +282,7 @@ def resolve_backend(model, keys):
             )
             print("   Set it with:  export OPENROUTER_API_KEY=sk-or-...", file=sys.stderr)
             sys.exit(1)
-        return OPENROUTER_API_URL, api_key, model, {
+        return openrouter_api_url, api_key, model, {
             "HTTP-Referer": "https://github.com/weareaisle/nano-analyzer",
             "X-Title": "nano-analyzer",
         }
@@ -292,7 +295,7 @@ def resolve_backend(model, keys):
         )
         print("   Set it with:  export OPENAI_API_KEY=sk-...", file=sys.stderr)
         sys.exit(1)
-    return OPENAI_API_URL, api_key, model, {}
+    return openai_api_url, api_key, model, {}
 
 
 _http_session = None

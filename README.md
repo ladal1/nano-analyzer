@@ -58,6 +58,25 @@ export OPENROUTER_API_KEY=sk-or-...
 
 The scanner determines which key to use based on the model name: if it contains a `/`, it routes through OpenRouter; otherwise it uses the OpenAI API directly.
 
+### Endpoint overrides (OpenAI-compatible)
+
+By default, nano-analyzer uses:
+
+- OpenAI: `https://api.openai.com/v1/chat/completions`
+- OpenRouter: `https://openrouter.ai/api/v1/chat/completions`
+
+You can override either endpoint with environment variables:
+
+```bash
+# Override OpenAI endpoint (must be OpenAI-compatible chat/completions API)
+export OPENAI_API_URL=https://your-openai-compatible-host/v1/chat/completions
+
+# Override OpenRouter endpoint
+export OPENROUTER_API_URL=https://your-openrouter-compatible-host/v1/chat/completions
+```
+
+This is useful for proxies, gateways, self-hosted OpenAI-compatible providers, or enterprise routing layers.
+
 ## Usage
 
 ### Basic scan
